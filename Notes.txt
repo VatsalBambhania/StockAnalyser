@@ -1,0 +1,41 @@
+Don't exceed the repeat request interval more than response time of request time of bsedata.BSE().getQuote()
+
+In other words 
+ interval to update graph > time to get data from getQuote()
+
+For eg.
+	if it takes getQuote 50ms to fetch data then interval to update graph should be greater than 50ms otherwise graph will get stuck.
+
+Classes:
+1) Basic Graph:
+	Functions: 
+	* Everytime new data comes
+		Update graph
+		call Analyser.update
+	* Maintain array to store live data which is fetched
+
+2) Analyser:
+	Functions:
+	On calling update function
+		based on conditions it will recognizes and update based patterns (like Rod and Range for now, can add many different patterns in future)
+
+3) Rod & Range:
+	Functions:
+	Retains the necessary values associated with pattern and display it on graph whenever conditions are right
+
+Algorithm:
+
+while True:
+	
+	if Rod is made:
+		show rod on graph and update it's values
+
+	else if Range is made:
+		show range on graph and update it's values
+
+	else if Rod and Range both are formed:
+		sense breakout and wait for stability time
+		if pattern retains it's form for desired time:
+			show the whole pattern and continue sensing for more
+		else:
+			reset all based patterns (Rod and Range) and start all over again
